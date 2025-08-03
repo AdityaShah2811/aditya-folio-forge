@@ -26,8 +26,8 @@ const Hero = () => {
       
       <div className="container mx-auto px-6 py-20 text-center relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight gradient-text">{" "}
-            Aditya Shah
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+            <span className="gradient-text">Aditya Shah</span>
           </h1>
           <div className="mb-8">
             <Badge variant="secondary" className="text-lg px-6 py-2 mb-4 bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30">
