@@ -7,6 +7,7 @@ import Education from "@/components/Education";
 import Contact from "@/components/Contact";
 import Navigation from "@/components/Navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import EasterEggs from "@/components/EasterEggs";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <ThemeToggle />
+      <EasterEggs />
       <Hero />
       <About />
       <Experience />
