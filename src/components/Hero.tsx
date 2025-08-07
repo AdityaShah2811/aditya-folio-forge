@@ -115,10 +115,10 @@ Currently pursuing Master's in Information Systems at Northeastern University.
           </h1>
           
           <div className="mb-8">
-            <Badge variant="secondary" className="text-lg px-6 py-2 mb-4 bg-primary-foreground/20 text-primary-foreground border-primary-foreground/30">
-              <Terminal className="w-4 h-4 mr-2" />
-              Software Engineer & DevOps Enthusiast
-            </Badge>
+            <div className="inline-flex items-center px-8 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white">
+              <Code2 className="w-5 h-5 mr-3" />
+              <span className="text-lg font-medium">Software Engineer & DevOps Enthusiast</span>
+            </div>
           </div>
           
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed opacity-90">
