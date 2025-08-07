@@ -126,7 +126,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="gradient-text">Aditya Pranav Shah</span>
+            <span className="text-white drop-shadow-lg">Aditya Pranav Shah</span>
           </h1>
           
           <div className="mb-8">
