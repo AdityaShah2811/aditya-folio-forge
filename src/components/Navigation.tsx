@@ -35,7 +35,7 @@ const Navigation = () => {
     }`}>
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <h1 className="text-xl font-bold gradient-text">Aditya Shah</h1>
+          <h1 className="text-xl font-bold text-primary">Aditya Shah</h1>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
