@@ -169,7 +169,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover-lift"
+              className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white hover-lift"
               onClick={() => window.open('https://github.com/adityashah', '_blank')}
             >
               <Github className="w-5 h-5 mr-2" />
@@ -178,7 +178,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
             <Button 
               variant="outline" 
               size="lg" 
-              className="border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover-lift"
+              className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white hover-lift"
               onClick={() => window.open('https://linkedin.com/in/justaditya1', '_blank')}
             >
               <Linkedin className="w-5 h-5 mr-2" />
