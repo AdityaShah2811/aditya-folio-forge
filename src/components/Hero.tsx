@@ -176,9 +176,9 @@ Currently pursuing Master's in Information Systems at Northeastern University.
         <div className={`absolute bottom-8 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
           <button 
             onClick={scrollToNext}
-            className="animate-bounce hover:scale-110 transition-transform p-2 rounded-full bg-primary-foreground/20 backdrop-blur-sm group"
+            className="hover:scale-110 transition-transform p-4 rounded-full bg-primary-foreground/20 backdrop-blur-sm group"
           >
-            <ChevronDown className="w-6 h-6 text-primary-foreground group-hover:text-primary transition-colors" />
+            <ChevronDown className="w-6 h-6 text-primary-foreground group-hover:text-primary transition-colors animate-bounce" />
           </button>
         </div>
       </div>
