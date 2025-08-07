@@ -110,21 +110,6 @@ Currently pursuing Master's in Information Systems at Northeastern University.
       <div className="container mx-auto px-6 py-20 text-center relative z-10">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           
-          {/* Terminal-style header */}
-          <div className="bg-card/10 backdrop-blur-sm rounded-lg border border-primary-foreground/20 p-6 mb-8 max-w-2xl mx-auto">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-primary-foreground/60 text-sm ml-2">~/portfolio/aditya-shah</span>
-            </div>
-            <div className="text-left font-mono text-sm">
-              <span className="text-green-400">$</span> 
-              <span className="ml-2 text-primary-foreground">{typedText}</span>
-              <span className={`text-primary-foreground ${showCursor ? 'opacity-100' : 'opacity-0'}`}>|</span>
-            </div>
-          </div>
-
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
             <span className="text-white drop-shadow-lg">Aditya Pranav Shah</span>
           </h1>
