@@ -1,48 +1,56 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Mail, Phone, MapPin, Github, Linkedin, Coffee, ExternalLink } from "lucide-react";
+import { useProfile } from "@/context/ProfileContext";
 
 const Contact = () => {
+  const { data } = useProfile();
+  const contact = data?.contact;
   const contactCards = [
     { 
       icon: Mail, 
       title: "Email", 
-      value: "shah.aditya@northeastern.edu",
-      action: () => window.open("mailto:shah.aditya@northeastern.edu", "_self")
+      value: contact?.email ?? "shah.aditya@northeastern.edu",
+      action: () => window.open(`mailto:${contact?.email ?? "shah.aditya@northeastern.edu"}`, "_self")
     },
     { 
       icon: Phone, 
       title: "Phone", 
-      value: "+1(857) 234-7211",
-      action: () => window.open("tel:+18572347211", "_self")
+      value: contact?.phone ?? "+1(857) 234-7211",
+      action: () => window.open(`tel:${(contact?.phone ?? "+18572347211").replace(/[^+\d]/g, "")}`, "_self")
     },
     { 
       icon: MapPin, 
       title: "Location", 
-      value: "Boston, MA",
-      action: () => window.open("https://maps.google.com/?q=Boston,MA", "_blank")
+      value: contact?.location ?? "Boston, MA",
+      action: () => window.open(`https://maps.google.com/?q=${encodeURIComponent(contact?.location ?? "Boston, MA")}`, "_blank")
     }
   ];
 
-  const socialLinks = [
+  const IconMap = { Github, Linkedin } as const;
+  const socialLinks = (contact?.socials ?? [
     {
       name: "GitHub",
-      icon: Github,
+      icon: "Github",
       url: "https://github.com/adityashah",
       color: "hover:text-gray-900 dark:hover:text-gray-100"
     },
     {
       name: "LinkedIn", 
-      icon: Linkedin,
+      icon: "Linkedin",
       url: "https://linkedin.com/in/justaditya1",
       color: "hover:text-blue-600"
     }
-  ];
+  ]).map((s) => ({
+    ...s,
+    icon: IconMap[(s.icon as string) as keyof typeof IconMap] ?? Github
+  }));
 
   const sendEmail = () => {
     const subject = "Let's Connect!";
     const body = "Hi Aditya,\n\nI came across your portfolio and would love to connect.\n\nBest regards,";
-    window.open(`mailto:shah.aditya@northeastern.edu?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
+    const email = contact?.email ?? "shah.aditya@northeastern.edu";
+    window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
   };
 
   return (

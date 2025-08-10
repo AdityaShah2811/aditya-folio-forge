@@ -2,9 +2,14 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Github, Award, Users, Target } from "lucide-react";
+import { useProfile } from "@/context/ProfileContext";
+
 
 const Projects = () => {
-  const projects = [
+  const { data } = useProfile();
+  const IconMap = { Award, Users, Target } as const;
+
+  const fallback = [
     {
       title: "MySpeech – Web Conferencing System",
       subtitle: "Final Year Project",
@@ -17,7 +22,7 @@ const Projects = () => {
         "Received recognition as the best final year project in Electronics Engineering department"
       ],
       technologies: ["Machine Learning", "Web Development", "Speech Recognition", "Accessibility"],
-      icon: <Award className="w-6 h-6" />,
+      icon: "Award",
       metrics: {
         accuracy: "90%",
         users: "50+",
@@ -36,7 +41,7 @@ const Projects = () => {
         "Deployed in 3 residential buildings as pilot project"
       ],
       technologies: ["Python", "MongoDB", "IoT", "Mobile Development", "Security"],
-      icon: <Users className="w-6 h-6" />,
+      icon: "Users",
       metrics: {
         reduction: "80%",
         deployments: "3 Buildings",
@@ -55,7 +60,7 @@ const Projects = () => {
         "Contributed to 15% improvement in customer satisfaction scores"
       ],
       technologies: ["Machine Learning", "Data Science", "Python", "Data Visualization"],
-      icon: <Target className="w-6 h-6" />,
+      icon: "Target",
       metrics: {
         accuracy: "85%",
         reviews: "10,000+",
@@ -63,6 +68,8 @@ const Projects = () => {
       }
     }
   ];
+
+  const projects = (data?.projects ?? fallback) as any[];
 
   return (
     <section className="py-20 bg-background">
@@ -77,7 +84,7 @@ const Projects = () => {
               <Card key={index} className={`p-6 shadow-card border-border/50 hover-lift animate-on-scroll stagger-${index + 1} transition-all duration-300 group`}>{" "}
                 <div className="flex items-center gap-3 mb-4">
                   <div className="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                    {project.icon}
+                    {(() => { const IconComp = IconMap[(project.icon as string) as keyof typeof IconMap] ?? Award; return <IconComp className="w-6 h-6" />; })()}
                   </div>
                   <div>
                     <h3 className="font-bold text-foreground text-lg leading-tight">{project.title}</h3>

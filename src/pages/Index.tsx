@@ -9,23 +9,26 @@ import Navigation from "@/components/Navigation";
 import ThemeToggle from "@/components/ThemeToggle";
 import EasterEggs from "@/components/EasterEggs";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { ProfileProvider } from "@/context/ProfileContext";
 
 const Index = () => {
   useScrollAnimation();
 
   return (
-    <div className="min-h-screen">
-      <Navigation />
-      <ThemeToggle />
-      <EasterEggs />
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Education />
-      <Contact />
-    </div>
+    <ProfileProvider>
+      <div className="min-h-screen">
+        <Navigation />
+        <ThemeToggle />
+        <EasterEggs />
+        <Hero />
+        <About />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Education />
+        <Contact />
+      </div>
+    </ProfileProvider>
   );
 };
 

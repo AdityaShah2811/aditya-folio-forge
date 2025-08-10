@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, MapPin, Download, Github, Linkedin, ChevronDown, Terminal, Code2 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useProfile } from "@/context/ProfileContext";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -63,6 +64,8 @@ const Hero = () => {
     };
   }, []);
 
+  const { data } = useProfile();
+
   const scrollToNext = () => {
     const nextSection = document.getElementById('about');
     nextSection?.scrollIntoView({ behavior: 'smooth' });
@@ -111,33 +114,32 @@ Currently pursuing Master's in Information Systems at Northeastern University.
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-white drop-shadow-lg">Aditya Pranav Shah</span>
+            <span className="text-white drop-shadow-lg">{data?.hero?.name ?? 'Aditya Pranav Shah'}</span>
           </h1>
           
           <div className="mb-8">
             <div className="inline-flex items-center px-8 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white">
               <Code2 className="w-5 h-5 mr-3" />
-              <span className="text-lg font-medium">Software Engineer & DevOps Enthusiast</span>
+              <span className="text-lg font-medium">{data?.hero?.title ?? "Software Engineer & DevOps Enthusiast"}</span>
             </div>
           </div>
           
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed opacity-90">
-            Building robust, scalable solutions with expertise in IoT platforms, 
-            test automation, and cloud technologies. Currently pursuing MS in Information Systems at Northeastern.
+            {data?.hero?.summary ?? "Building robust, scalable solutions with expertise in IoT platforms, test automation, and cloud technologies. Currently pursuing MS in Information Systems at Northeastern."}
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-12 text-sm">
             <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-2 rounded-full backdrop-blur-sm">
               <MapPin className="w-4 h-4" />
-              <span>Boston, MA</span>
+              <span>{data?.hero?.location ?? "Boston, MA"}</span>
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-2 rounded-full backdrop-blur-sm">
               <Phone className="w-4 h-4" />
-              <span>+1(857) 234-7211</span>
+              <span>{data?.hero?.phone ?? "+1(857) 234-7211"}</span>
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-2 rounded-full backdrop-blur-sm">
               <Mail className="w-4 h-4" />
-              <span>shah.aditya@northeastern.edu</span>
+              <span>{data?.hero?.email ?? "shah.aditya@northeastern.edu"}</span>
             </div>
           </div>
           
@@ -155,7 +157,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
               variant="outline" 
               size="lg" 
               className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white hover-lift"
-              onClick={() => window.open('https://github.com/adityashah', '_blank')}
+              onClick={() => window.open(data?.hero?.github ?? 'https://github.com/adityashah', '_blank')}
             >
               <Github className="w-5 h-5 mr-2" />
               GitHub
@@ -164,7 +166,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
               variant="outline" 
               size="lg" 
               className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white hover-lift"
-              onClick={() => window.open('https://linkedin.com/in/justaditya1', '_blank')}
+              onClick={() => window.open(data?.hero?.linkedin ?? 'https://linkedin.com/in/justaditya1', '_blank')}
             >
               <Linkedin className="w-5 h-5 mr-2" />
               LinkedIn

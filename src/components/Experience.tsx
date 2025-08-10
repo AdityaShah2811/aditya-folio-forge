@@ -1,9 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, MapPin, Building } from "lucide-react";
+import { useProfile } from "@/context/ProfileContext";
+
 
 const Experience = () => {
-  const experiences = [
+  const { data } = useProfile();
+  const experiences = data?.experience ?? [
     {
       company: "UtopiaTech Pvt Ltd",
       role: "Software Tester",

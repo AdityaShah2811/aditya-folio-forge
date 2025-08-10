@@ -1,9 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Calendar } from "lucide-react";
+import { useProfile } from "@/context/ProfileContext";
+
 
 const Education = () => {
-  const education = [
+  const { data } = useProfile();
+  const education = data?.education ?? [
     {
       institution: "Dwarkadas J. Sanghvi College of Engineering",
       degree: "Bachelor of Technology",
