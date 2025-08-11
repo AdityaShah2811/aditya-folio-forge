@@ -7,7 +7,7 @@ import { useProfile } from "@/context/ProfileContext";
 const Projects = () => {
   const { data } = useProfile();
 
-  const projects = data.projects || [];
+  const projects = data?.projects || [];
 
   return (
     <section className="py-20 bg-muted/30">

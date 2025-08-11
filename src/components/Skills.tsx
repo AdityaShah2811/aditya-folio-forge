@@ -17,7 +17,7 @@ const Skills = () => {
   };
 
   // Group skills by category
-  const skillCategories = data.skills ? 
+  const skillCategories = data?.skills ? 
     Object.entries(
       data.skills.reduce((acc, skill) => {
         if (!acc[skill.category]) {
