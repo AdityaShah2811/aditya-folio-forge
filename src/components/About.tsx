@@ -14,8 +14,7 @@ const About = () => {
     { icon: "Cloud", text: "Pursuing AWS certification", color: "text-orange-400" }
   ];
 
-  const highlights = data?.about?.highlights ?? fallbackHighlights;
-
+  const highlights = fallbackHighlights;
 
   return (
     <section id="about" className="py-20 bg-background">
@@ -27,15 +26,9 @@ const About = () => {
           
           <Card className="p-8 shadow-card border-border/50 hover-lift animate-on-scroll stagger-1 bg-card/50 backdrop-blur-sm">
             <div className="prose prose-lg max-w-none">
-              {(data?.about?.paragraphs ?? [
-                "Software Engineer with 2+ years of experience in test automation and IoT systems, currently pursuing a Master's in Information Systems at Northeastern University. Seeking entry-level DevOps/Cloud Engineering roles.",
-                "Experienced in building robust, scalable solutions that improve deployment efficiency and system stability. My passion lies in creating innovative IoT solutions and automation frameworks that make a real impact."
-              ]).map((para, idx) => (
-                <p key={idx} className="text-muted-foreground leading-relaxed mb-6">
-                  {para}
-                </p>
-              ))}
-
+              <p className="text-muted-foreground leading-relaxed mb-6">
+                {data.personalInfo.bio.long}
+              </p>
 
               {/* Stats grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

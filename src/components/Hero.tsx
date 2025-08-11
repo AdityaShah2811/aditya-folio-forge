@@ -72,19 +72,33 @@ const Hero = () => {
   };
 
   const handleResumeDownload = () => {
-    // Create a simple resume data and download
-    const resumeData = `
-ADITYA PRANAV SHAH
-+1(857) 234-7211 | Boston, MA
-shah.aditya@northeastern.edu
-LinkedIn: linkedin.com/in/justaditya1
-GitHub: github.com/adityashah
+    if (!data) return;
+    
+    const resumeText = `
+${data.personalInfo.fullName}
+${data.personalInfo.professionalTitle}
+${data.personalInfo.email} | ${data.personalInfo.phone}
+${data.personalInfo.location.city}, ${data.personalInfo.location.state}
 
-Software Engineer with 2+ years of experience in test automation and IoT systems.
-Currently pursuing Master's in Information Systems at Northeastern University.
+SUMMARY
+${data.personalInfo.bio.short}
+
+EXPERIENCE
+${data.experience.map(exp => `
+${exp.role} at ${exp.company} (${exp.startDate} - ${exp.endDate || 'Present'})
+${exp.location}
+${exp.achievements.map(a => a.text).join('\n')}`).join('\n\n')}
+
+EDUCATION
+${data.education.map(edu => `
+${edu.degree} in ${edu.fieldOfStudy}
+${edu.institution} (${edu.startDate} - ${edu.endDate || 'Present'})`).join('\n\n')}
+
+SKILLS
+${data.skills.map(skill => skill.name).join(', ')}
     `;
     
-    const blob = new Blob([resumeData], { type: 'text/plain' });
+    const blob = new Blob([resumeText], { type: 'text/plain' });
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
@@ -114,32 +128,32 @@ Currently pursuing Master's in Information Systems at Northeastern University.
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            <span className="text-white drop-shadow-lg">{data?.hero?.name ?? 'Aditya Pranav Shah'}</span>
+            <span className="text-white drop-shadow-lg">{data.personalInfo.fullName}</span>
           </h1>
           
           <div className="mb-8">
             <div className="inline-flex items-center px-8 py-3 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 text-white">
               <Code2 className="w-5 h-5 mr-3" />
-              <span className="text-lg font-medium">{data?.hero?.title ?? "Software Engineer & DevOps Enthusiast"}</span>
+              <span className="text-lg font-medium">{data.personalInfo.professionalTitle}</span>
             </div>
           </div>
           
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed opacity-90">
-            {data?.hero?.summary ?? "Building robust, scalable solutions with expertise in IoT platforms, test automation, and cloud technologies. Currently pursuing MS in Information Systems at Northeastern."}
+            {data.personalInfo.headline}
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-12 text-sm">
             <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-2 rounded-full backdrop-blur-sm">
               <MapPin className="w-4 h-4" />
-              <span>{data?.hero?.location ?? "Boston, MA"}</span>
+              <span>{data.personalInfo.location.city}, {data.personalInfo.location.state}</span>
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-2 rounded-full backdrop-blur-sm">
               <Phone className="w-4 h-4" />
-              <span>{data?.hero?.phone ?? "+1(857) 234-7211"}</span>
+              <span>{data.personalInfo.phone}</span>
             </div>
             <div className="flex items-center gap-2 bg-primary-foreground/10 px-3 py-2 rounded-full backdrop-blur-sm">
               <Mail className="w-4 h-4" />
-              <span>{data?.hero?.email ?? "shah.aditya@northeastern.edu"}</span>
+              <span>{data.personalInfo.email}</span>
             </div>
           </div>
           
@@ -157,7 +171,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
               variant="outline" 
               size="lg" 
               className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white hover-lift"
-              onClick={() => window.open(data?.hero?.github ?? 'https://github.com/adityashah', '_blank')}
+              onClick={() => window.open(data.socialLinks.find(s => s.platform === 'GitHub')?.url || '#', '_blank')}
             >
               <Github className="w-5 h-5 mr-2" />
               GitHub
@@ -166,7 +180,7 @@ Currently pursuing Master's in Information Systems at Northeastern University.
               variant="outline" 
               size="lg" 
               className="bg-white/20 backdrop-blur-sm border-white/30 text-white hover:bg-white/30 hover:text-white hover-lift"
-              onClick={() => window.open(data?.hero?.linkedin ?? 'https://linkedin.com/in/justaditya1', '_blank')}
+              onClick={() => window.open(data.socialLinks.find(s => s.platform === 'LinkedIn')?.url || '#', '_blank')}
             >
               <Linkedin className="w-5 h-5 mr-2" />
               LinkedIn
@@ -175,12 +189,12 @@ Currently pursuing Master's in Information Systems at Northeastern University.
         </div>
         
         {/* Scroll indicator */}
-        <div className={`absolute bottom-12 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
+        <div className={`absolute bottom-4 left-1/2 transform -translate-x-1/2 transition-all duration-1000 delay-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}>
           <button 
             onClick={scrollToNext}
-            className="hover:scale-110 transition-transform p-3 rounded-full bg-primary-foreground/20 backdrop-blur-sm group"
+            className="hover:scale-110 transition-transform p-2 rounded-full bg-primary-foreground/20 backdrop-blur-sm group"
           >
-            <ChevronDown className="w-5 h-5 text-primary-foreground group-hover:text-primary transition-colors animate-bounce" />
+            <ChevronDown className="w-4 h-4 text-primary-foreground group-hover:text-primary transition-colors animate-bounce" />
           </button>
         </div>
       </div>

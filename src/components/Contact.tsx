@@ -5,51 +5,34 @@ import { useProfile } from "@/context/ProfileContext";
 
 const Contact = () => {
   const { data } = useProfile();
-  const contact = data?.contact;
+
   const contactCards = [
     { 
       icon: Mail, 
       title: "Email", 
-      value: contact?.email ?? "shah.aditya@northeastern.edu",
-      action: () => window.open(`mailto:${contact?.email ?? "shah.aditya@northeastern.edu"}`, "_self")
+      value: data.personalInfo.email,
+      action: () => window.open(`mailto:${data.personalInfo.email}`, "_self")
     },
     { 
       icon: Phone, 
       title: "Phone", 
-      value: contact?.phone ?? "+1(857) 234-7211",
-      action: () => window.open(`tel:${(contact?.phone ?? "+18572347211").replace(/[^+\d]/g, "")}`, "_self")
+      value: data.personalInfo.phone,
+      action: () => window.open(`tel:${data.personalInfo.phone.replace(/[^+\d]/g, "")}`, "_self")
     },
     { 
       icon: MapPin, 
       title: "Location", 
-      value: contact?.location ?? "Boston, MA",
-      action: () => window.open(`https://maps.google.com/?q=${encodeURIComponent(contact?.location ?? "Boston, MA")}`, "_blank")
+      value: `${data.personalInfo.location.city}, ${data.personalInfo.location.state}`,
+      action: () => window.open(`https://maps.google.com/?q=${encodeURIComponent(`${data.personalInfo.location.city}, ${data.personalInfo.location.state}`)}`, "_blank")
     }
   ];
 
-  const IconMap = { Github, Linkedin } as const;
-  const socialLinks = (contact?.socials ?? [
-    {
-      name: "GitHub",
-      icon: "Github",
-      url: "https://github.com/adityashah",
-      color: "hover:text-gray-900 dark:hover:text-gray-100"
-    },
-    {
-      name: "LinkedIn", 
-      icon: "Linkedin",
-      url: "https://linkedin.com/in/justaditya1",
-      color: "hover:text-blue-600"
-    }
-  ]).map((s) => ({
-    ...s,
-    icon: IconMap[(s.icon as string) as keyof typeof IconMap] ?? Github
-  }));
+  const IconMap = { github: Github, linkedin: Linkedin, mail: Mail } as const;
 
   const sendEmail = () => {
     const subject = "Let's Connect!";
     const body = "Hi Aditya,\n\nI came across your portfolio and would love to connect.\n\nBest regards,";
-    const email = contact?.email ?? "shah.aditya@northeastern.edu";
+    const email = data.personalInfo.email;
     window.open(`mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`, "_self");
   };
 
@@ -103,16 +86,19 @@ const Contact = () => {
           </div>
 
           <div className="flex justify-center gap-6 animate-on-scroll stagger-5">
-            {socialLinks.map((social, index) => (
-              <button
-                key={index}
-                onClick={() => window.open(social.url, "_blank")}
-                className={`p-3 rounded-full bg-card/50 backdrop-blur-sm border border-border/50 text-muted-foreground transition-all duration-300 hover:scale-110 hover:shadow-glow ${social.color} group`}
-                title={`Visit my ${social.name}`}
-              >
-                <social.icon className="w-6 h-6 group-hover:scale-110 transition-transform" />
-              </button>
-            ))}
+            {data.socialLinks.map((social, index) => {
+              const IconComponent = IconMap[social.iconName as keyof typeof IconMap] || Github;
+              return (
+                <button
+                  key={index}
+                  onClick={() => window.open(social.url, "_blank")}
+                  className="p-3 rounded-full bg-card/50 backdrop-blur-sm border border-border/50 text-muted-foreground transition-all duration-300 hover:scale-110 hover:shadow-glow group"
+                  title={`Visit my ${social.platform}`}
+                >
+                  <IconComponent className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                </button>
+              );
+            })}
           </div>
 
           {/* Easter egg */}
