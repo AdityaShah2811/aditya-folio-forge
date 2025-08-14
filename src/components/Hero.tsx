@@ -4,17 +4,38 @@ import { Mail, Phone, MapPin, Download, Github, Linkedin, ChevronDown, Terminal,
 import { useEffect, useState } from "react";
 import { useProfile } from "@/context/ProfileContext";
 
+/**
+ * Hero Section Component
+ * 
+ * The main landing section of the portfolio that introduces the user with:
+ * - Animated typing effect displaying code snippet
+ * - Personal information and professional title
+ * - Contact details with interactive elements
+ * - Social media links and resume download
+ * - Scroll indicator to guide users to next section
+ * - Developer console easter eggs for tech-savvy visitors
+ * 
+ * Features:
+ * - Gradient background with animated floating elements
+ * - Typewriter animation for code display
+ * - Responsive design for all screen sizes
+ * - Interactive social links and contact info
+ * - Resume generation and download functionality
+ */
 const Hero = () => {
+  // Component state for animations and interactions
   const [isVisible, setIsVisible] = useState(false);
   const [typedText, setTypedText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
   
-  const codeText = "const developer = new SoftwareEngineer('Aditya Shah');";
+  // Dynamic code text that can be customized per user
+  const codeText = "const developer = new SoftwareEngineer('Portfolio Owner');";
   
   useEffect(() => {
+    // Trigger initial animation on component mount
     setIsVisible(true);
     
-    // Typing animation
+    // Typewriter animation for code display
     let i = 0;
     const typing = setInterval(() => {
       if (i < codeText.length) {
@@ -25,37 +46,37 @@ const Hero = () => {
       }
     }, 100);
 
-    // Cursor blinking
+    // Blinking cursor effect for typewriter
     const cursorBlink = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 500);
 
-    // Console easter egg
+    // Console easter egg for developers
     console.log(`
     ╔══════════════════════════════════════╗
-    ║  🚀 Welcome to Aditya's Portfolio!   ║
+    ║  🚀 Welcome to the Portfolio!        ║
     ║  Type 'help()' for hidden commands   ║
     ╚══════════════════════════════════════╝
     `);
     
-    // Add global functions for easter eggs
+    // Add global functions for developer easter eggs
     (window as any).help = () => {
       console.log(`
-      Available commands:
-      - konami() - Enter the Konami code
+      Available developer commands:
+      - help() - Show this help message
       - skills() - List technical skills
       - experience() - Show work experience
       - contact() - Get contact information
-      - matrix() - Enable matrix mode
+      - matrix() - Enable matrix mode (also available globally)
       `);
     };
     
     (window as any).skills = () => {
-      console.log("Skills: Python, JavaScript, Java, Node.js, AWS, Docker, MongoDB, Git");
+      console.log(`Technical Skills: ${data.skills.map(skill => skill.name).join(', ')}`);
     };
     
     (window as any).contact = () => {
-      console.log("📧 shah.aditya@northeastern.edu | 📱 +1(857) 234-7211 | 📍 Boston, MA");
+      console.log(`📧 ${data.personalInfo.email} | 📱 ${data.personalInfo.phone} | 📍 ${data.personalInfo.location}`);
     };
 
     return () => {
@@ -64,13 +85,21 @@ const Hero = () => {
     };
   }, []);
 
+  // Get portfolio data from context
   const { data } = useProfile();
 
+  /**
+   * Smooth scroll to the About section
+   */
   const scrollToNext = () => {
     const nextSection = document.getElementById('about');
     nextSection?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  /**
+   * Generate and download a text-based resume
+   * Creates a simple text file with portfolio information
+   */
   const handleResumeDownload = () => {
     if (!data) return;
     
@@ -102,7 +131,7 @@ ${data.skills.map(skill => skill.name).join(', ')}
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'Aditya_Shah_Resume.txt';
+    a.download = `${data.personalInfo.fullName.replace(/\s+/g, '_')}_Resume.txt`;
     a.click();
     window.URL.revokeObjectURL(url);
   };

@@ -2,11 +2,27 @@ import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Terminal, Activity, Clock, Zap } from "lucide-react";
 
+/**
+ * Easter Eggs Component
+ * 
+ * Adds fun interactive elements and hidden features to the portfolio:
+ * - Matrix rain effect triggered by console command or Konami code
+ * - Developer statistics overlay showing fun metrics
+ * - Konami code sequence detection for secret activation
+ * - Global console functions for developer interaction
+ * 
+ * Features:
+ * - matrix() - Activates Matrix-style digital rain animation
+ * - stats() - Shows developer statistics overlay
+ * - Konami code (↑↑↓↓←→←→BA) - Activates both effects
+ * - Responsive design with proper z-indexing
+ */
 const EasterEggs = () => {
   const [isMatrixMode, setIsMatrixMode] = useState(false);
   const [konamiCode, setKonamiCode] = useState<string[]>([]);
   const [showDevStats, setShowDevStats] = useState(false);
   
+  // Classic Konami code sequence
   const expectedKonami = [
     'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
     'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
@@ -14,20 +30,24 @@ const EasterEggs = () => {
   ];
 
   useEffect(() => {
-    // Matrix mode easter egg
+    // Matrix mode easter egg - can be triggered via console
     (window as any).matrix = () => {
       setIsMatrixMode(true);
-      console.log("🔥 Matrix mode activated!");
+      console.log("🔥 Matrix mode activated! Enjoy the digital rain!");
       setTimeout(() => setIsMatrixMode(false), 5000);
     };
 
-    // Dev stats easter egg
+    // Developer statistics easter egg
     (window as any).stats = () => {
       setShowDevStats(true);
+      console.log("📊 Developer stats displayed!");
       setTimeout(() => setShowDevStats(false), 3000);
     };
 
-    // Konami code listener
+    /**
+     * Konami code detection
+     * Listens for the classic cheat code sequence and activates easter eggs
+     */
     const handleKeyDown = (e: KeyboardEvent) => {
       const newCode = [...konamiCode, e.code].slice(-10);
       setKonamiCode(newCode);
@@ -50,7 +70,7 @@ const EasterEggs = () => {
 
   return (
     <>
-      {/* Matrix rain effect */}
+      {/* Matrix rain effect - creates falling digital characters */}
       {isMatrixMode && (
         <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
           <div className="matrix-rain">
@@ -75,7 +95,7 @@ const EasterEggs = () => {
         </div>
       )}
 
-      {/* Dev stats overlay */}
+      {/* Developer stats overlay - shows fun development metrics */}
       {showDevStats && (
         <div className="fixed top-20 right-6 z-50 bg-card/95 backdrop-blur-sm border border-border rounded-lg p-4 shadow-glow animate-fade-in">
           <div className="flex items-center gap-2 mb-3">
@@ -102,6 +122,7 @@ const EasterEggs = () => {
         </div>
       )}
 
+      {/* CSS animations for Matrix effect */}
       <style>{`
         @keyframes matrixRain {
           0% { transform: translateY(-100vh); }

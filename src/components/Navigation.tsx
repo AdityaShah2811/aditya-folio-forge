@@ -2,6 +2,20 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
+/**
+ * Navigation Component
+ * 
+ * A responsive navigation bar that provides smooth scrolling to page sections.
+ * Features a dynamic design that changes based on scroll position and includes
+ * a collapsible mobile menu for smaller screens.
+ * 
+ * Features:
+ * - Scroll-based styling changes (background opacity, shadow)
+ * - Smooth scroll navigation to page sections
+ * - Responsive mobile menu with hamburger toggle
+ * - Professional gradient background that adapts to scroll
+ * - Fixed positioning for constant accessibility
+ */
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
